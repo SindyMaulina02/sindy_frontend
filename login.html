@@ -49,6 +49,12 @@
             })
             .then(response => {
                 console.log('Response:', response);
+
+                if (!response.ok) {
+                    // Handle error response
+                    return response.text().then(text => { throw new Error(text) });
+                }
+
                 return response.json();
             })
             .then(data => {
@@ -66,7 +72,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
+                alert('An error occurred: ' + error.message);
             });
         });
     </script>
